@@ -26,11 +26,11 @@ public class Metric {
 	
 	@Column
 	@NotBlank
-	private int value;
+	private int metricValue;
 	
 	@Column
 	@NotBlank
-	private Timestamp timestamp;
+	private Timestamp metricTime;
 
 	public Long getId() {
 		return id;
@@ -48,20 +48,20 @@ public class Metric {
 		this.name = name;
 	}
 
-	public int getValue() {
-		return value;
+	public int getMetricValue() {
+		return metricValue;
 	}
 
-	public void setValue(int value) {
-		this.value = value;
+	public void setMetricValue(int value) {
+		this.metricValue = value;
 	}
 
-	public Timestamp getTimestamp() {
-		return timestamp;
+	public Timestamp getMetricTime() {
+		return metricTime;
 	}
 
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
+	public void setMetricTime(Timestamp metricTime) {
+		this.metricTime = metricTime;
 	}
 	
 	
