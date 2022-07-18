@@ -1,6 +1,9 @@
 package com.thornadus.controller;
 
+import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -32,6 +35,17 @@ public class MetricRestController {
 		return metricServiceAPI.getAll();
 	}
 	
+	@GetMapping(value = "/points")
+	public Map<String, Integer> getPoints() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		List<Metric> allData = metricServiceAPI.getAll();
+		for (Metric metric : allData) {
+			System.out.println("Se encontro metrica. Nombre: "+metric.getName()+", Valor: "+ metric.getMetricValue()+", Time: "+metric.getMetricTime());
+			map.put(metric.getMetricTime().toString(), metric.getMetricValue());
+		}
+		return map;
+	}
+
 	@GetMapping(value = "/metrics/{id}")
 	public Metric find(@PathVariable Long id) {
 		return metricServiceAPI.get(id);
