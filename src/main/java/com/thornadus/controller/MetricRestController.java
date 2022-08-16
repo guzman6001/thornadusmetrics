@@ -1,9 +1,12 @@
 package com.thornadus.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.validation.Valid;
 
@@ -36,14 +39,24 @@ public class MetricRestController {
 	}
 	
 	@GetMapping(value = "/points")
-	public Map<String, Integer> getPoints() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+	public String getPoints() {
+		
 		List<Metric> allData = metricServiceAPI.getAll();
+		String dataJSONreturn = "[";
+		int i = 0;
 		for (Metric metric : allData) {
-			System.out.println("Se encontro metrica. Nombre: "+metric.getName()+", Valor: "+ metric.getMetricValue()+", Time: "+metric.getMetricTime());
-			map.put(metric.getMetricTime().toString(), metric.getMetricValue());
+			if (i != 0){
+				dataJSONreturn=dataJSONreturn.concat(",");
+			}
+			dataJSONreturn=dataJSONreturn.concat("[");
+			dataJSONreturn=dataJSONreturn.concat(String.valueOf(metric.getMetricTime().getTime()));
+			dataJSONreturn=dataJSONreturn.concat(",");
+			dataJSONreturn=dataJSONreturn.concat(String.valueOf(metric.getMetricValue()));
+			dataJSONreturn=dataJSONreturn.concat("]");
+			i++;
 		}
-		return map;
+		dataJSONreturn=dataJSONreturn.concat("]");
+		return dataJSONreturn;
 	}
 
 	@GetMapping(value = "/metrics/{id}")
